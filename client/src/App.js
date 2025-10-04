@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import GroupDetailView from "./pages/GroupDetail";
 import Profile from "./pages/ProfileDetail";
+import ScheduleMeeting from "./forms/ScheduleMeeting";
+import UserGroups from "./pages/UserGroups";
 function App() 
 {
   const [user, setUser] = useState(null)
@@ -41,6 +43,8 @@ function App()
           <Route path='/studygroups/:id/detail' element={<GroupDetailView />} />
           <Route path='/studygroups/new' element={<NewStudyGroup />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/schedulemeeting/:id" element={<ScheduleMeeting />} />
+          <Route path="/studygroups/usergroups" element={<UserGroups />} />
         </Routes>
       </Router>
     </div>

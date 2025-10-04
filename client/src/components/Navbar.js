@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import NewGroupButton from "./NewGroupButton";
 import "../styles/Navbar.css";
+import UserGroupsButton from "./UserGroupsButton";
 
 function Navbar({ user }) {
     return (
@@ -14,6 +15,7 @@ function Navbar({ user }) {
             <div className="navbar-right">
                 {user ? (
                     <>
+                        <UserGroupsButton />
                         <NewGroupButton />
                         <a href="http://localhost:3000/auth/logout/">
                             <button className="navbar-button">Logout</button>

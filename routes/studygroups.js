@@ -16,6 +16,22 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/usergroups', async (req, res) => {
+    const userID = req.user.id
+    try
+    {
+        const result = await db.query(`SELECT * FROM study_groups 
+        JOIN group_members ON study_groups.id = group_members.study_group_id 
+        WHERE group_members.member_id = $1`, [userID])
+        res.json(result.rows)
+    }
+    catch (err)
+    {
+        console.error("Error: ", err)
+        res.status(500).send("internal server error.")
+    }
+})
+
 
 router.post('/new', async (req, res) => {
     const {department, classCode, professor, maxMembers, description} = req.body

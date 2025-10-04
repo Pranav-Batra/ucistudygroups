@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import '../styles/Profile.css'
+import { fetchCurrentUser } from "../utils/auth";
 
 function Profile() {
   const { id } = useParams(); // profile being viewed
@@ -39,13 +40,14 @@ function Profile() {
       }
     };
 
-    const fetchCurrentUser = async () => {
+    const getUser = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/auth/user`, {
-          credentials: "include"
-        });
-        if (!res.ok) throw new Error("Failed to fetch current user.");
-        const user = await res.json();
+        const user = await fetchCurrentUser()
+        // const res = await fetch(`http://localhost:3000/auth/user`, {
+        //   credentials: "include"
+        // });
+        // if (!res.ok) throw new Error("Failed to fetch current user.");
+        // const user = await res.json();
         setLoggedInUser(user);
         console.log(user)
       } catch (err) {
@@ -54,7 +56,7 @@ function Profile() {
     };
 
     fetchProfile();
-    fetchCurrentUser();
+    getUser();
   }, [id]);
 
   const handleChange = (e) => {

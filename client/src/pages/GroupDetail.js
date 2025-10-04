@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import JoinGroupButton from "../components/JoinGroupButton";
 import "../styles/GroupDetail.css";
+import ScheduleMeetingButton from "../components/ScheduleMeetingButton";
 
 function GroupDetailView() {
     const [group, setGroup] = useState(null);
@@ -49,8 +50,8 @@ function GroupDetailView() {
                         onStatusChange={fetchGroup}
                     />
                 )}
-
-                <button className="schedule-button">Schedule Meeting</button>
+                <ScheduleMeetingButton id={id} />
+                {/* <button className="schedule-button">Schedule Meeting</button> */}
             </div>
 
             <div className="members-list">
