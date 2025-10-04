@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {useState, useEffect} from 'react'
 import GroupDetailView from "./pages/GroupDetail";
+import Profile from "./pages/ProfileDetail";
 function App() 
 {
   const [user, setUser] = useState(null)
@@ -39,6 +40,7 @@ function App()
           <Route path='/' element={<Home />} />
           <Route path='/studygroups/:id/detail' element={<GroupDetailView />} />
           <Route path='/studygroups/new' element={<NewStudyGroup />} />
+          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </Router>
     </div>

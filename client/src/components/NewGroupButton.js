@@ -1,12 +1,14 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../styles/NewGroupButton.css";
 
-function NewGroupButton() 
-{
-    const navigate = useNavigate()
+function NewGroupButton() {
+    const navigate = useNavigate();
     return (
-        <button onClick = {() => navigate('/studygroups/new')}>New Study Group</button>
-    )
+        <button className="new-group-button" onClick={() => navigate('/studygroups/new')}>
+            New Study Group
+        </button>
+    );
 }
 
-export default NewGroupButton
+export default NewGroupButton;

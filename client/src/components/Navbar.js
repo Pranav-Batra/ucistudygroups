@@ -1,31 +1,32 @@
-import {Link} from 'react-router-dom'
-import NewGroupButton from './NewGroupButton'
+import { Link } from "react-router-dom";
+import NewGroupButton from "./NewGroupButton";
+import "../styles/Navbar.css";
 
-function Navbar({user}) {
+function Navbar({ user }) {
     return (
-        <nav>
-            <div>
-                <Link to='/'>
-                    Home
+        <nav className="navbar">
+            <div className="navbar-left">
+                <Link to="/" className="navbar-logo">
+                    StudyGroups
                 </Link>
             </div>
 
-            <div>
+            <div className="navbar-right">
                 {user ? (
                     <>
                         <NewGroupButton />
                         <a href="http://localhost:3000/auth/logout/">
-                            <button>Logout</button>
+                            <button className="navbar-button">Logout</button>
                         </a>
                     </>
                 ) : (
                     <a href="http://localhost:3000/auth/google/">
-                        <button>Login with UCI</button>
+                        <button className="navbar-button login-button">Login with UCI</button>
                     </a>
                 )}
             </div>
         </nav>
-    )
+    );
 }
 
-export default Navbar
+export default Navbar;

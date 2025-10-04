@@ -1,0 +1,96 @@
+.group-detail-container {
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    background-color: #121212;
+    color: #e0e0e0;
+    min-height: 100vh;
+}
+
+.group-info {
+    flex: 2;
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.group-info h1 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.group-info h2, .group-info h3 {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 8px;
+}
+
+.group-info p {
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.schedule-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.schedule-button:hover {
+    background-color: #0056b3;
+}
+
+.members-list {
+    flex: 1;
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.members-list h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.member-item:last-child {
+    border-bottom: none;
+}
+
+.view-profile-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.view-profile-button:hover {
+    background-color: #218838;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.5rem;
+    color: #cccccc;
+}

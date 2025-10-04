@@ -1,0 +1,62 @@
+.step-two-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #1f2937; /* dark mode background */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #f9fafb;
+    font-family: Arial, sans-serif;
+}
+
+.step-two-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step-two-container label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.step-two-container select,
+.step-two-container input {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    background-color: #374151;
+    color: #f9fafb;
+    outline: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.step-two-container select:hover,
+.step-two-container input:hover {
+    background-color: #4b5563;
+}
+
+.step-two-container select:focus,
+.step-two-container input:focus {
+    background-color: #4b5563;
+    transform: scale(1.02);
+}
+
+.step-two-container button {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #4f46e5, #6366f1);
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.step-two-container button:hover {
+    background: linear-gradient(90deg, #6366f1, #4f46e5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}

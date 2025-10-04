@@ -1,57 +1,51 @@
-import React, {useState, useEffect} from "react";
-import JoinGroupButton from "../components/JoinGroupButton";
-import {Navigate, useNavigate} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/Home.css";
 
-function StudyGroup({group}) 
-{
-    const navigate = useNavigate()
+function StudyGroup({ group }) {
+    const navigate = useNavigate();
     const handleOnClick = () => {
-        navigate(`/studygroups/${group.id}/detail`)
-    }
+        navigate(`/studygroups/${group.id}/detail`);
+    };
+
     return (
-        <div>
-            <h1>{group.department} {group.class_code} Study Group</h1>
-            <h2>Professor: {group.professor}</h2>
-            <h3>Member Limit: {group.max_members}</h3>
-            <p>Description: {group.description}</p>
-            <JoinGroupButton id={group.id} />
-            <button onClick={handleOnClick}>View Details</button>
+        <div className="card">
+            <h1 className="card-title">{group.department} {group.class_code} Study Group</h1>
+            <h2 className="card-subtitle">Professor: {group.professor}</h2>
+            <h3 className="card-subtitle">Member Limit: {group.max_members}</h3>
+            <p className="card-description">{group.description}</p>
+            <button className="card-button" onClick={handleOnClick}>View Details</button>
         </div>
-    )
+    );
 }
 
-function Home() 
-{
-    const [studyGroups, setStudyGroups] = useState([])
-    useEffect(() => 
-    {
-        const fetchGroups = async () => 
-        {
-            try
-            {
-                const res = await fetch('http://localhost:3000/studygroups')
-                if (!res.ok)
-                {
-                    console.log("Error in fetching.")
-                    return
+function Home() {
+    const [studyGroups, setStudyGroups] = useState([]);
+
+    useEffect(() => {
+        const fetchGroups = async () => {
+            try {
+                const res = await fetch("http://localhost:3000/studygroups");
+                if (!res.ok) {
+                    console.log("Error in fetching.");
+                    return;
                 }
-                const data = await res.json()
-                setStudyGroups(data)
+                const data = await res.json();
+                setStudyGroups(data);
+            } catch (err) {
+                console.error("Error: ", err);
             }
-            catch (err)
-            {
-                console.error('Error: ', err)
-            }
-    
-        }
-        fetchGroups()
-    }, [])
+        };
+        fetchGroups();
+    }, []);
 
     return (
-        <div>
-            {studyGroups.map((group) => <StudyGroup key={group.id} group={group} />)}
+        <div className="home-container">
+            {studyGroups.map((group) => (
+                <StudyGroup key={group.id} group={group} />
+            ))}
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;

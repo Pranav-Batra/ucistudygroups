@@ -1,65 +1,58 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
+import "../../styles/StepOne.css";
 
-function StepOne ({setProfessors, setCourseInfo, goToNextStep}) {
-    const [department, setDepartment] = useState('')
-    const [courseCode, setCourseCode] = useState('')
+function StepOne({ setProfessors, setCourseInfo, goToNextStep }) {
+    const [department, setDepartment] = useState("");
+    const [courseCode, setCourseCode] = useState("");
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        
-        console.log("Department: ", department)
-        console.log("Coursecode: ", courseCode)
-        setCourseInfo({department, courseCode})
-        const res = await fetch('http://localhost:3000/offerings/courses', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({department, courseCode})
-        })
+        e.preventDefault();
 
-        if (!res.ok)
-        {
-            console.log("Failure.")
+        console.log("Department: ", department);
+        console.log("Coursecode: ", courseCode);
+
+        setCourseInfo({ department, courseCode });
+
+        const res = await fetch("http://localhost:3000/offerings/courses", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ department, courseCode })
+        });
+
+        if (!res.ok) {
+            console.log("Failure.");
             return;
         }
 
-        const courses = await res.json()
-        var professors = []
-        courses[0].offerings.map(offering => {
-            console.log(`Current offering: ${offering}`)
-            var cur_instructor = offering.instructor.split('.')
-            if (cur_instructor[cur_instructor.length - 1] === '')
-            {
-                cur_instructor.pop()
+        const courses = await res.json();
+        var professors = [];
+        courses[0].offerings.map((offering) => {
+            var cur_instructor = offering.instructor.split(".");
+            if (cur_instructor[cur_instructor.length - 1] === "") {
+                cur_instructor.pop();
             }
-            console.log(`Offering: ${offering.instructor}`)
-            console.log(`Instructors: ${cur_instructor}`)
             const exists = professors.some(
-                arr => JSON.stringify(arr) === JSON.stringify(cur_instructor)
-            )
-            if (!exists)
-            {
-                professors.push([...cur_instructor])
+                (arr) => JSON.stringify(arr) === JSON.stringify(cur_instructor)
+            );
+            if (!exists) {
+                professors.push([...cur_instructor]);
             }
-            
-            // console.log(`Current profs: ${current_profs}`)
-            setProfessors(professors)
-            goToNextStep()
-        }
-        )
-        console.log(professors)
-        
-    }
+            setProfessors(professors);
+            goToNextStep();
+        });
+        console.log(professors);
+    };
+
     return (
-        <div>
+        <div className="step-one-container">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="Department">
-                    Choose Department
-                </label>
-                <select 
-                name="Dept"
-                value={department}
-                onChange = {(e) => setDepartment(e.target.value)}>
-                    <option value=" ALL">Include All Departments</option>
+                <label htmlFor="Department">Choose Department</label>
+                <select
+                    name="Dept"
+                    value={department}
+                    onChange={(e) => setDepartment(e.target.value)}
+                >
+                    <option value=" ALL">Select a Department</option>
                     <option value="AC ENG">AC ENG . . . . . .Academic English</option>
                     <option value="AFAM">AFAM . . . . . . . African American Studies</option>
                     <option value="ANATOMY">ANATOMY . . . .Anatomy and Neurobiology</option>
@@ -211,21 +204,20 @@ function StepOne ({setProfessors, setCourseInfo, goToNextStep}) {
                     <option value="VIETMSE">VIETMSE . . . . .Vietnamese</option>
                     <option value="VIS STD">VIS STD . . . . . .Visual Studies</option>
                     <option value="WRITING">WRITING . . . . . Writing</option>
-			    </select>
-                <label htmlFor="Course Number">
-                    Enter Course Number
-                </label>
-                <input 
-                type="text"
-                value={courseCode}
-                onChange = {(e) => setCourseCode(e.target.value)}
-                 />
+                    <option value="COMPSCI">COMPSCI - Computer Science</option>
+                </select>
+
+                <label htmlFor="Course Number">Enter Course Number</label>
+                <input
+                    type="text"
+                    value={courseCode}
+                    onChange={(e) => setCourseCode(e.target.value)}
+                />
+
                 <button type="submit">Next</button>
-
             </form>
-
         </div>
-    )
+    );
 }
 
-export default StepOne
+export default StepOne;

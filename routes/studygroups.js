@@ -65,15 +65,32 @@ router.get('/:id/detail', async (req, res) => {
     const groupID = req.params.id
     try
     {
+        userID = null
+        if (req.user)
+        {
+            userID = req.user.id
+        }
         const groupInfo = await db.query("SELECT * FROM study_groups WHERE id=$1", [groupID])
         const groupMembers = await db.query(`
         SELECT * FROM users 
         JOIN group_members ON users.id = group_members.member_id
         JOIN study_groups ON group_members.study_group_id = study_groups.id
         WHERE study_groups.id = $1`, [groupID])
+        let userPartOf = false
+        if (Number.isInteger(userID))
+        {
+            const userInGroup = await db.query(
+                `SELECT EXISTS (SELECT 1 FROM group_members 
+                WHERE study_group_id = $1 AND member_id=$2)`, [groupID, userID])
+            if (userInGroup.rows && userInGroup.rows.length > 0)
+            {
+                userPartOf =  userInGroup.rows[0].exists
+            }
+        }
         res.json({
             groupInfo: groupInfo.rows[0],
-            groupMembers: groupMembers.rows
+            groupMembers: groupMembers.rows,
+            userInGroup: userPartOf
         }
         )
     }
@@ -88,8 +105,19 @@ router.post('/:id/join', async (req, res) => {
     const groupID = req.params.id
     const userJoiningID = req.user.id
     let userOwns = false
+    console.log("JOINING GROUP.")
     try
     {
+        const memberRes = await db.query(`SELECT COUNT(*) from group_members WHERE study_group_id = $1`, [groupID])
+        const limitRes = await db.query('SELECT max_members FROM study_groups WHERE id=$1', [groupID])
+        console.log(`memberRes: `)
+        console.dir(memberRes.rows[0])
+        console.log('limitres: ')
+        console.dir(limitRes.rows[0])
+        if (memberRes.rows[0].count >= limitRes.rows[0].max_members)
+        {
+            return res.status(404).send("Invalid permissions. This group is full.")
+        }
         const result = await db.query("SELECT EXISTS (SELECT 1 FROM study_groups WHERE id=$1 AND user_id=$2)", [groupID, userJoiningID])
         if (result.rows && result.rows.length > 0)
         {
@@ -110,6 +138,23 @@ router.post('/:id/join', async (req, res) => {
         res.status(500).send("Internal server error. ")
     }
 
+})
+
+router.delete('/:id/join', async (req, res) => {
+    const groupID = req.params.id
+    const userID = req.user.id
+    console.log("DELETING FROM GROPU.")
+    try
+    {
+        const result = await db.query(`DELETE FROM group_members
+        WHERE study_group_id=$1 AND member_id=$2 RETURNING *`, [groupID, userID])
+        res.json(result.rows)
+    }
+    catch (err)
+    {
+        console.error("Error: ", err)
+        res.status(500).send("Internal Server error. ")
+    }
 })
 
 module.exports = router;
