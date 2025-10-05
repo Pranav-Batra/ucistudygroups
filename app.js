@@ -5,6 +5,7 @@ const offerings = require('./routes/courseOfferings')
 const auth = require('./routes/auth')
 const studyGroups = require('./routes/studygroups')
 const profiles = require('./routes/profiles')
+const meetings = require('./routes/meetings')
 const express = require('express')
 
 /*
@@ -47,5 +48,6 @@ app.use('/offerings', offerings)
 app.use('/auth', auth)
 app.use('/studygroups', studyGroups)
 app.use('/profiles', profiles)
+app.use('/meetings', meetings)
 
 app.listen(port, () => {console.log(`Listening on port ${port}`)})
