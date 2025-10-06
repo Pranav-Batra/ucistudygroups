@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal server error.")
     }
 })
@@ -27,7 +27,7 @@ router.get('/usergroups', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("internal server error.")
     }
 })
@@ -50,7 +50,7 @@ router.post('/new', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal Server Error.")
     }
 })
@@ -67,12 +67,12 @@ router.delete('/:id', async (req, res) => {
     try
     {
         const deletedGroup = await db.query('DELETE FROM study_groups WHERE id=$1 RETURNING *', [id])
-        console.log(deletedGroup.rows)
+        // console.log(deletedGroup.rows)
         res.status(200).send("Successfully deleted item.")
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal server error.")
     }
 })
@@ -112,7 +112,7 @@ router.get('/:id/detail', async (req, res) => {
     }
     catch (err)
     {
-        console.log('Error: ', err)
+        // console.log('Error: ', err)
         res.status(500).send("Internal Server Error.")
     }
 })
@@ -121,15 +121,14 @@ router.post('/:id/join', async (req, res) => {
     const groupID = req.params.id
     const userJoiningID = req.user.id
     let userOwns = false
-    console.log("JOINING GROUP.")
     try
     {
         const memberRes = await db.query(`SELECT COUNT(*) from group_members WHERE study_group_id = $1`, [groupID])
         const limitRes = await db.query('SELECT max_members FROM study_groups WHERE id=$1', [groupID])
-        console.log(`memberRes: `)
-        console.dir(memberRes.rows[0])
-        console.log('limitres: ')
-        console.dir(limitRes.rows[0])
+        // console.log(`memberRes: `)
+        // console.dir(memberRes.rows[0])
+        // console.log('limitres: ')
+        // console.dir(limitRes.rows[0])
         if (memberRes.rows[0].count >= limitRes.rows[0].max_members)
         {
             return res.status(404).send("Invalid permissions. This group is full.")
@@ -137,9 +136,9 @@ router.post('/:id/join', async (req, res) => {
         const result = await db.query("SELECT EXISTS (SELECT 1 FROM study_groups WHERE id=$1 AND user_id=$2)", [groupID, userJoiningID])
         if (result.rows && result.rows.length > 0)
         {
-            console.log(`Result stuff: ${result.rows}`)
+            // console.log(`Result stuff: ${result.rows}`)
             userOwns = result.rows[0].exists
-            console.log(`User owns this group: ${userOwns}`)
+            // console.log(`User owns this group: ${userOwns}`)
         }
         const userStatus = userOwns ? 'admin' : 'normal'
         const newMember = await db.query(
@@ -150,7 +149,7 @@ router.post('/:id/join', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal server error. ")
     }
 
@@ -159,7 +158,7 @@ router.post('/:id/join', async (req, res) => {
 router.delete('/:id/join', async (req, res) => {
     const groupID = req.params.id
     const userID = req.user.id
-    console.log("DELETING FROM GROPU.")
+    // console.log("DELETING FROM GROPU.")
     try
     {
         const result = await db.query(`DELETE FROM group_members
@@ -168,7 +167,7 @@ router.delete('/:id/join', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal Server error. ")
     }
 })

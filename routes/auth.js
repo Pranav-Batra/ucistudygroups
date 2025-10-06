@@ -4,8 +4,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const db = require('../config/db')
 const router = express.Router()
 
-console.log(`Client ID: ${process.env.GOOGLE_CLIENT_ID}`)
-console.log(`Client ID: ${process.env.GOOGLE_CLIENT_SECRET}`)
+// console.log(`Client ID: ${process.env.GOOGLE_CLIENT_ID}`)
+// console.log(`Client ID: ${process.env.GOOGLE_CLIENT_SECRET}`)
 
 
 
@@ -69,7 +69,7 @@ passport.authenticate('google', { scope: ['profile', 'email'] }))
 router.get('/google/callback', 
 passport.authenticate('google', {failureRedirect: '/'}),
 (req, res) => {
-    console.log(req.user)
+    // console.log(req.user)
     res.redirect('http://localhost:3001/')
 })
 

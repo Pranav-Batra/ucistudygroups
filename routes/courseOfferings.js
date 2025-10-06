@@ -7,7 +7,7 @@ router = express.Router()
 router.post('/courses', async (req, res) => {
     try
     {
-        console.log(req.body)
+        // console.log(req.body)
         const {department, courseCode} = req.body
 
         const formData = new URLSearchParams({
@@ -89,12 +89,12 @@ router.post('/courses', async (req, res) => {
             }
             }
         });
-        console.log(courses)
+        // console.log(courses)
         res.json(courses) 
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal Server Error.")
     }
 })

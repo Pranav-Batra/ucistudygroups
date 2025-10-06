@@ -5,28 +5,24 @@ const db = require('../config/db')
 
 let transporter
 
-(async () => {
-    const testAccount = await nodemailer.createTestAccount(); // 🔥 generates valid creds
-  
+(async () => {  
     transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false,
+      service: "gmail",
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
       },
     });
 
-    console.log("Ethereal test account ready!");
-  console.log("Login:", testAccount.user);
-  console.log("Password:", testAccount.pass);
-}
+//     console.log("Ethereal test account ready!");
+//   console.log("Login:", testAccount.user);
+//   console.log("Password:", testAccount.pass);
+ }
 )()
 // Wrap in an async IIFE so we can use await.
 
 router.post('/:id', async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     const groupID = req.params.id
     const {meetingTime, description} = req.body
     const date = new Date(meetingTime)
@@ -77,12 +73,9 @@ router.post('/:id', async (req, res) => {
         })
 
         const results = await Promise.all(emailPromises)
-        const previewLinks = results.map(info => nodemailer.getTestMessageUrl(info));
 
-        console.log("Preview links:", previewLinks);
             res.status(200).json({
             message: "Meeting created and emails sent successfully.",
-            previewLinks, // You can open these in browser to view emails
             });
 
 

@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
     }
     catch (err)
     {
-        console.error("Error: ", err)
+        // console.error("Error: ", err)
         res.status(500).send("Internal server error.")
     }
 })
@@ -52,7 +52,7 @@ router.put('/:id', ensureAuthenticated, async (req, res) => {
   
       res.json(result.rows[0]);
     } catch (err) {
-      console.error('Error updating profile:', err);
+      // console.error('Error updating profile:', err);
       res.status(500).json({ error: 'Server error updating profile.' });
     }
   });

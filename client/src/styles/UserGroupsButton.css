@@ -1,0 +1,23 @@
+.user-groups-button {
+    background: linear-gradient(135deg, #4f46e5, #6366f1); /* nice gradient */
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-groups-button:hover {
+    background: linear-gradient(135deg, #3730a3, #4f46e5);
+    transform: translateY(-2px);
+  }
+  
+  .user-groups-button:active {
+    transform: translateY(0px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
