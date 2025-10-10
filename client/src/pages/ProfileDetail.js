@@ -84,8 +84,12 @@ function Profile() {
   if (!profile) {
     return <div className="p-8 text-center text-xl font-semibold">Loading Profile...</div>;
   }
-
-  const canEdit = loggedInUser && loggedInUser.user.id === profile.id;
+  console.log(`Logged in User: ${loggedInUser}`)
+  let canEdit = false
+  if (loggedInUser.user)
+  {
+    canEdit = loggedInUser && loggedInUser.user.id === profile.id;
+  }
   console.log(`Logged in:`)
   console.log(loggedInUser)
   console.log(profile)

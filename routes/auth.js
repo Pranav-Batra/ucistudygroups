@@ -70,7 +70,7 @@ router.get('/google/callback',
 passport.authenticate('google', {failureRedirect: '/'}),
 (req, res) => {
     // console.log(req.user)
-    res.redirect('http://localhost:8080/')
+    res.redirect('http://localhost:3001/')
 })
 
 router.get('/user', (req, res) => {
@@ -90,7 +90,7 @@ router.get('/logout', (req, res, next) => {
         {
             return next(err)
         }
-        res.redirect('http://localhost:8080/')
+        res.redirect('http://localhost:3001/')
     })
 })
 
